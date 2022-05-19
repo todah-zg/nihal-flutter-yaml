@@ -11,6 +11,7 @@ workflows:
         CM_KEYSTORE_PATH: /tmp/keystore.keystore
         CM_KEY_ALIAS: Encrypted(Z0FBQUFBQmcwbDcweUxYUmxxaTVEeFhxY0hTQWVteUlTMWhiNzVpazlERUFNR1g5akMxLTA4NjVKaXJ2dEdVdDhDRVV5WlNqa25kTW1raDJuYlRiT2o2YW1qTmpMWDc4akE9PQ==) # <-- Put your encrypted keystore alias username here 
         PACKAGE_NAME: "io.codemagic.flutteryaml" # <-- Put your package name here
+        GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "dfdf"
       flutter: stable
       xcode: latest
       cocoapods: default
@@ -26,7 +27,7 @@ workflows:
           cd . && flutter packages pub get       
       - name: Build APK with Flutter  
         script: |
-          cd . && flutter build appBundle --release --build-name=1.0.0 --build-number=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))
+          cd . && flutter build appBundle --release 
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
