@@ -10,33 +10,20 @@ workflows:
       vars:
         CM_KEYSTORE_PATH: /tmp/keystore.keystore
         PACKAGE_NAME: 'io.codemagic.marijan.flutteryaml' # <-- Put your package name here e.g. "io.codemagic.flutteryaml"
-        GOOGLE_PLAY_TRACK: 'alpha' # <-- Any default or custom track that is not in ‘draft’ status
+        GOOGLE_PLAY_TRACK: 'internal' # <-- Any default or custom track that is not in ‘draft’ status
       flutter: stable
       xcode: latest
       cocoapods: default
     scripts:
       - name: Set up key properties
         script: |
-          echo $CM_KEYSTORE | base64 --decode > $CM_KEYSTORE_PATH
-          cat >> "$CM_BUILD_DIR/android/key.properties" <<EOF
-          storePassword=$CM_KEYSTORE_PASSWORD
-          keyPassword=$CM_KEY_PASSWORD
-          keyAlias=$CM_KEY_ALIAS
-          storeFile=$CM_KEYSTORE_PATH/keystore.keystore
-          EOF
+          echo $CM_KEYSTORE | base64 --decode > /tmp/keystore.keystore
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Get Flutter packages
         script: |
           cd . && flutter packages pub get
-      - name: Flutter analyze
-        script: |
-          cd . && flutter analyze
-      - name: Flutter unit tests
-        script: |
-          cd . && flutter test
-        ignore_failure: true
       - name: Build APK with Flutter
         script: |
           cd . && flutter build appbundle --release --build-name=1.0.0 --build-number=1
