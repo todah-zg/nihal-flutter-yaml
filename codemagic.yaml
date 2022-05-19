@@ -27,7 +27,7 @@ workflows:
           cd . && flutter packages pub get       
       - name: Build APK with Flutter  
         script: |
-          cd . && flutter build appBundle  
+          cd . && flutter build appbundle  
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
