@@ -23,17 +23,10 @@ workflows:
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Get Flutter packages
         script: |
-          cd . && flutter packages pub get
-      - name: Flutter analyze
-        script: |
-          cd . && flutter analyze
-      - name: Flutter unit tests
-        script: |
-          cd . && flutter test
-        ignore_failure: true          
+          cd . && flutter packages pub get       
       - name: Build APK with Flutter  
         script: |
-          cd . && flutter build apk --release --build-name=1.0.0 --build-number=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))
+          cd . && flutter build appBundle --release --build-name=1.0.0 --build-number=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks="$GOOGLE_PLAY_TRACK") + 1))
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
