@@ -20,10 +20,10 @@ workflows:
         script: |
           #!/usr/bin/env zsh
           echo $CM_KEYSTORE | base64 --decode > /tmp/keystore.keystore
-      - name: Set up local.properties
-        script: |
-          #!/usr/bin/env zsh
-          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+#      - name: Set up local.properties
+#        script: |
+#          #!/usr/bin/env zsh
+#          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Get Flutter packages
         script: |
           cd . && flutter packages pub get       
