@@ -6,11 +6,12 @@ workflows:
     environment:
       groups:
         - keystore
-        - google_play
+ #       - google_play
         - other
       vars:
         CM_KEYSTORE_PATH: /tmp/keystore.keystore
         PACKAGE_NAME: "io.codemagic.flutteryaml" # <-- Put your package name here
+        GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: "dfdf"
       flutter: stable
       xcode: latest
       cocoapods: default
